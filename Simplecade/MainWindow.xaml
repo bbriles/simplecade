@@ -4,13 +4,53 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simplecade"
+        xmlns:viewModel="clr-namespace:Simplecade.ViewModel"
         mc:Ignorable="d"
         Title="Simplecade"
         WindowStyle="None"
-        WindowState="Maximized"
+        WindowState="Normal"
         Width="1024" Height="768"
         >
-    <Grid>
-
+  <Window.DataContext>
+    <viewModel:MainViewModel/>
+  </Window.DataContext>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="3*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Border Background="#2f5cb6"/>
+    <Border Grid.Column ="1" Background="#1f3d7a"/>
+    <ListView
+      x:Name="GameList"
+      ItemsSource="{Binding Games}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <Label Content="{Binding Name}"/>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+    <Grid Grid.Column="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*" />
+        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition Width="2*"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="4*"/>
+        <RowDefinition />
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+      <TextBlock Text="Name" Grid.Row="1" />
+      <TextBlock Text="{Binding SelectedItem.Name, ElementName=GameList}" Grid.Column="1" Grid.Row="1"/>
+      <TextBlock Text="Description" Grid.Row="2" />
+      <TextBlock Text="{Binding SelectedItem.Description, ElementName=GameList}" Grid.Column="1" Grid.Row="2"/>
+      <TextBlock Text="Genre" Grid.Row="3" />
+      <TextBlock Text="Genre goes here" Grid.Column="1" Grid.Row="3"/>
     </Grid>
+  </Grid>
 </Window>

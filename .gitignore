@@ -2,3 +2,6 @@
 Simplecade/obj/
 *.dll
 Simplecade/bin/
+*.db
+Simplecade.Data/bin/
+Simplecade.Data/obj/
