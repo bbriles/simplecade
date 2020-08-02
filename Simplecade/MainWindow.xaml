@@ -5,15 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simplecade"
         xmlns:viewModel="clr-namespace:Simplecade.ViewModel"
+        xmlns:converters="clr-namespace:Simplecade.Converters"
         mc:Ignorable="d"
         Title="Simplecade"
         WindowStyle="None"
         WindowState="Normal"
         Width="1024" Height="768"
+        Activated="OnActivated"
+        Deactivated="OnDeactivated"
         >
   <Window.DataContext>
     <viewModel:MainViewModel/>
   </Window.DataContext>
+  <Window.Resources>
+    <converters:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+    <converters:InverseNullVisibilityConverter x:Key="InverseNullVisibilityConverter" />
+  </Window.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="2*" />
@@ -30,7 +37,10 @@
       Background="#2f5cb6">
       <ListView.ItemTemplate>
         <DataTemplate>
-          <Label Content="{Binding Name}"/>
+          <StackPanel>
+            <!--<Image Height="60px" Stretch="UniformToFill" Visibility="{Binding ListIconPath, Converter={StaticResource NullVisibilityConverter}}" Source="{Binding ListIconPath}" />-->
+            <TextBlock FontSize="20" Text="{Binding Name}"/>
+          </StackPanel>
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
@@ -42,15 +52,22 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="1*"/>
         <RowDefinition Height="4*"/>
-        <RowDefinition Height="4*"/>
+        <RowDefinition Height="5*"/>
       </Grid.RowDefinitions>
-      <TextBlock Text="{Binding SelectedItem.Name, ElementName=GameList}" Grid.ColumnSpan="3"/>
+      <TextBlock FontSize="30" Padding="10 10 10 10" Text="{Binding SelectedItem.Name, ElementName=GameList}" Grid.ColumnSpan="3"/>
       
-      <MediaElement Source="{Binding SelectedItem.VideoPath, ElementName=GameList}" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1" />
+      <MediaElement 
+        x:Name="Video"
+        Source="{Binding SelectedItem.VideoPath, ElementName=GameList}" 
+        Grid.ColumnSpan="2" 
+        Grid.Column="0" 
+        Grid.Row="1" 
+        Margin="10 10 10 10"
+        LoadedBehavior="{Binding IsPlaying, Converter={StaticResource BoolLoadedBehaviorConverter}}"/>
 
       <Grid Grid.Row="2" Grid.Column="0">
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="1*" />
+          <ColumnDefinition Width="1.5*" />
           <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -58,15 +75,15 @@
           <RowDefinition />
           <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="System" Grid.Row="0" Grid.Column="0" />
+        <TextBlock Text="System" Grid.Row="0" Grid.Column="0" Padding="5 0 0 0" />
         <TextBlock Text="{Binding SelectedItem.System.Name, ElementName=GameList}" Grid.Row="0" Grid.Column="1"/>
-        <TextBlock Text="Genre" Grid.Row="1" Grid.Column="0" />
-        <TextBlock Text="Genre goes here" Grid.Row="1" Grid.Column="1"/>
-        <TextBlock Text="Description" Grid.Row="2" Grid.Column="0" />
+        <TextBlock Text="Genre" Grid.Row="1" Grid.Column="0" Padding="5 0 0 0"/>
+        <TextBlock Text="{Binding SelectedItem.Genre, ElementName=GameList}" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Text="Description" Grid.Row="2" Grid.Column="0" Padding="5 0 0 0" /> 
         <TextBlock Text="{Binding SelectedItem.Description, ElementName=GameList}" Grid.Row="2" Grid.Column="1" />
       </Grid>
       
-      <Image Source="{Binding SelectedItem.BoxArtPath, ElementName=GameList}" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3"/>
+      <Image Source="{Binding SelectedItem.BoxArtPath, ElementName=GameList}" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" Margin="10 10 10 10"/>
     </Grid>
   </Grid>
 </Window>

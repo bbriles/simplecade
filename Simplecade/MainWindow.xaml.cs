@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Simplecade.Data;
+using Simplecade.ViewModel;
 
 namespace Simplecade
 {
@@ -32,6 +34,21 @@ namespace Simplecade
             {
                 System.Windows.Application.Current.Shutdown();
             }
+            else if (e.Key == Key.D1 && GameList.SelectedItem != null)
+            {
+                var viewModel = DataContext as MainViewModel;
+                viewModel.StartGame(GameList.SelectedItem as Game);
+            }
+        }
+
+        private void OnActivated(object? sender, EventArgs e)
+        {
+            Video.LoadedBehavior = MediaState.Play;
+        }
+
+        private void OnDeactivated(object? sender, EventArgs e)
+        {
+            Video.LoadedBehavior = MediaState.Stop;
         }
     }
 }

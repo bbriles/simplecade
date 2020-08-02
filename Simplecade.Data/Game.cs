@@ -33,6 +33,11 @@ namespace Simplecade.Data
                 ? System.ListIconPath + "\\" + Filename + ".png"
                 : null;
 
+        public string FilePath =>
+            System != null && System.GamesPath != null
+                ? System.GamesPath + "\\" + Filename + "." + System.Extensions
+                : null;
+
         [ForeignKey("SystemId")]
         public System System { get; set; }
 
