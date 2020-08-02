@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace Simplecade.Data.Services
 {
@@ -11,7 +12,7 @@ namespace Simplecade.Data.Services
         {
             using (var dbContext = new SimplecadeContext())
             {
-                return dbContext.Games.ToList();
+                return dbContext.Games.Include(game => game.System).ToList();
             }
         }
     }

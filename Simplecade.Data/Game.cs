@@ -21,6 +21,18 @@ namespace Simplecade.Data
         public string Year { get; set; }
         public bool Multiplayer { get; set; }
 
+        public string VideoPath => System != null && System.VideoPath != null ? System.VideoPath + "\\" + Filename + ".mp4" : null;
+
+        public string BoxArtPath =>
+            System != null && System.BoxArtPath != null
+                ? System.BoxArtPath + "\\" + Filename + ".png"
+                : null;
+
+        public string ListIconPath =>
+            System != null && System.ListIconPath != null
+                ? System.ListIconPath + "\\" + Filename + ".png"
+                : null;
+
         [ForeignKey("SystemId")]
         public System System { get; set; }
 

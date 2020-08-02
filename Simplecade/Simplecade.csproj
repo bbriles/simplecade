@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Simplecade.Data\Simplecade.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
+
 </Project>

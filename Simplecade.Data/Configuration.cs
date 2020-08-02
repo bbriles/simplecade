@@ -10,10 +10,5 @@ namespace Simplecade.Data
     {
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ConfigurationId { get; set; }
-
-        public string BoxArtPath { get; set; }
-        public string VideoPath { get; set; }
-        public string SnapPath { get; set; }
-        public string BackgroundPath { get; set; }
     }
 }

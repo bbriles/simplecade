@@ -5,3 +5,5 @@ Simplecade/bin/
 *.db
 Simplecade.Data/bin/
 Simplecade.Data/obj/
+*.db-shm
+*.db-wal
